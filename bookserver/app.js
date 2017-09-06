@@ -3,26 +3,40 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');//https://stackoverflow.com/questions/22348705/best-way-to-store-db-config-in-node-js-express-app
+Genre = require('./models/genre');
+Book = require('./models/book');
 
 // connect to mongoose
 mongoose.connect(config.mongoConnectionString,{
   useMongoClient: true
 },function(error){
-  console.log(error);
+  // console.log('Error message', error);
 });
-var db = mongoose.connection;
 
-console.log(db);
+var db = mongoose.connection;
+console.log(mongoose.connection.readyState);
+
+// console.log(db);
 app.get('/', function(req, res){
   res.send('Please use /api/books or /api/genres');
 });
 
 app.get('/api/books', function(req, res){
-  res.send('reached /api/books');
+  Book.getBooks(function(err, books){
+    if (err) {
+      throw err;
+    }
+    res.json(books);
+  });
 });
 
 app.get('/api/genres', function(req, res){
-  res.send('reached /api/genres');
+  Genre.getGenres(function(err, genres){
+    if (err) {
+      throw err;
+    }
+    res.json(genres);
+  });
 });
 
 
