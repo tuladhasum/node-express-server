@@ -19,3 +19,7 @@ db.genres.insert({name:'Suspense'})
 
 ## to find records in collection
 `db.genres.find()`
+
+
+#source
+https://www.youtube.com/watch?v=eB9Fq9I5ocs

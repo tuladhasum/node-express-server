@@ -42,3 +42,13 @@ module.exports.getBooks = function(callback, limit){
   Book.find(callback).limit(limit);
   // console.log('calling ',callback,limit);
 };
+
+// Get Book by id
+module.exports.getBookById = function(id, callback){
+  Book.findById(id, callback);
+}
+
+// post book
+module.exports.addBook = function(book, callback){
+  Book.create(book,callback);
+};
