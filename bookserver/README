@@ -1,0 +1,21 @@
+# mongodb
+
+## on mongo shell
+`use <dbname>`
+
+## to list all the collection nale
+`show collections`
+
+## to create collection
+`
+db.createCollection('books')
+db.createCollection('genres')
+`
+
+## to insert to collection
+`
+db.genres.insert({name:'Suspense'})
+`
+
+## to find records in collection
+`db.genres.find()`
