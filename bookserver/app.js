@@ -3,8 +3,13 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');//https://stackoverflow.com/questions/22348705/best-way-to-store-db-config-in-node-js-express-app
+
+var sample = require('./models/sample');
+// console.log(sample);
+
 Genre = require('./models/genre');
 Book = require('./models/book');
+
 app.use(bodyParser.json());
 // connect to mongoose
 mongoose.connect(config.mongoConnectionString,{
@@ -12,6 +17,7 @@ mongoose.connect(config.mongoConnectionString,{
 },function(error){
   // console.log('Error message', error);
 });
+
 
 var db = mongoose.connection;
 console.log(mongoose.connection.readyState);
