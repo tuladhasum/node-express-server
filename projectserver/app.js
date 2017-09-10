@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+
 require('dotenv').config();
 
 var index = require('./routes/index');
@@ -33,10 +34,17 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Local variables to the application
+app.set('companyname','BCBSND');
+app.locals.parentcompany = 'Noridian';
+// console.log(app.locals);
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/sqlite', sqlite);
 app.use('/register', register);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

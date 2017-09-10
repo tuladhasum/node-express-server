@@ -1,5 +1,8 @@
 <% include partials/header.html %>
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<div class="container alert alert-danger">
+  <h1><%= message %></h1>
+  <h2><%= error.status %></h2>
+  <pre><%= console.log(error.stack); %></pre>
+  <small>The log is available on console</small>
+</div>
 <% include partials/footer.html %>
