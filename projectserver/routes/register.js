@@ -14,6 +14,11 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next){
 
   req.checkBody('email', 'Email cannot be empty').notEmpty();
+  req.checkBody('email','Enter a valid email address').isEmail();
+  req.checkBody('firstname', 'First Name cannot be empty').notEmpty();
+  req.checkBody('lastname', 'Last Name cannot be empty').notEmpty();
+  req.checkBody('password', 'Password must be between 3 and 15 character long').len(3,15);
+  req.checkBody('repeatPassword','Verify password must match the previous password').equals('password');
   /*
   checkBody()
     .len(min,max)
@@ -26,12 +31,16 @@ router.post('/', function(req, res, next){
     console.log(`errors: ${JSON.stringify(errors)}`);
     res.render('register',{
       title: 'Registration Error',
-      errors: JSON.stringify(errors)
+      // errors: JSON.stringify(errors)
+      errors: errors
     });
   }else{
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
     const email = req.body.email;
+    const password = req.body.password;
 
-    db.query('insert into users values ( ?)',[email], function(error, results, fields){
+    db.query('insert into users (firstname, lastname, email, password) values (?,?,?,?)',[firstname, lastname, email, password], function(error, results, fields){
           if(error) throw error;
           // res.redirect('register/json');
           res.render('register', {
