@@ -6,6 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 
+// Authentication Packages
+var session = require('express-session');
+var passport = require('passport');
+
 require('dotenv').config();
 
 var index = require('./routes/index');
@@ -33,6 +37,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'kljdflkaj8943094jkldjfskfl',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Local variables to the application
 app.set('companyname','BCBSND');

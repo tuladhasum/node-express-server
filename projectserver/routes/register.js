@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var expressValidator = require('express-validator');
 var bcrypt = require('bcrypt');
+var passport = require('passport');
 const saltRounds = 10;
 
 const db = require('../db.js');
@@ -46,12 +47,20 @@ router.post('/', function(req, res, next){
 
     bcrypt.hash(password, saltRounds, function(err, hash){
       db.query('insert into users (firstname, lastname, email, password) values (?,?,?,?)',[firstname, lastname, email, hash], function(error, results, fields){
-            if(error) throw error;
-            // res.redirect('register/json');
-            res.render('register', {
-              title: 'registration POST',
-              errors:null
-            });
+        if(error) throw error;
+
+        db.query('select last_insert_id() as user_id', function(error, results, fields){
+          if(error) throw error;
+
+          const user_id = results[0];
+          // console.log(results[0]);
+          req.login(user_id, function (err) {
+
+            res.redirect('/');
+          });
+          // res.render('register', { title: 'registration POST', errors:null });
+        });
+
       });
     });
     // db.end();
@@ -73,6 +82,14 @@ router.get('/json', function (req, res, next) {
 
   // res.json(jsonResult);
   // res.render('register', {title: '/register/all'});
+});
+
+passport.serializeUser(function(user_id, done) {
+  done(null, user_id);
+});
+
+passport.deserializeUser(function(user_id, done) {
+  done(null, user_id);
 });
 
 module.exports = router;
