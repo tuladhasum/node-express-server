@@ -14,9 +14,15 @@ router.get('/login', function(req, res, next){
   res.render('login', {title: 'Login Page'});
 });
 
+router.post('/login', passport.authenticate('local',{
+  successRedirect: '/profile',
+  failureRedirect: '/login'
+}));
+
 router.get('/profile',authenticationMiddleware(), function(req, res, next){
   res.render('profile', {title: 'Profile page'});
 });
+
 
 function authenticationMiddleware() {
   return (req, res, next) => {

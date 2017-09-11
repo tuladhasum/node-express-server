@@ -10,6 +10,7 @@ var expressValidator = require('express-validator');
 var session = require('express-session');
 var passport = require('passport');
 var MySQLStore = require('express-mysql-session');
+var LocalStrategy = require('passport-local').Strategy;
 
 require('dotenv').config();
 
@@ -17,6 +18,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var sqlite = require('./routes/sqlite');
 var register = require('./routes/register');
+var autodoc = require('./routes/autodoc');
 var db = require('./db');
 
 var ejs = require('ejs').renderFile;
@@ -66,6 +68,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/sqlite', sqlite);
 app.use('/register', register);
+app.use('/autodoc', autodoc);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

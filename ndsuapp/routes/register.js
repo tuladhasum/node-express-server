@@ -7,6 +7,7 @@ const saltRounds = 10;
 
 const db = require('../db.js');
 
+console.log('Registration: initialized');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
