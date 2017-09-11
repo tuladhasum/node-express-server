@@ -11,6 +11,7 @@ var session = require('express-session');
 var passport = require('passport');
 var MySQLStore = require('express-mysql-session');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -69,6 +70,37 @@ app.use('/users', users);
 app.use('/sqlite', sqlite);
 app.use('/register', register);
 app.use('/autodoc', autodoc);
+
+passport.use(new LocalStrategy(
+
+  function (username, password, done) {
+    console.log('username:', username);
+    console.log('password:', password);
+    const db = require('./db');
+    db.query('select user_id, password from users where email = ?',[username],function (err, results, fields) {
+      if (err) {
+        done(err);
+      }
+
+      if (results.length === 0) {
+        done(null, false);
+      }
+      console.log(results);
+      const hash = results[0].password.toString();
+      const user_id = results[0].user_id.toString();
+      console.log(hash);
+      bcrypt.compare(password, hash, function (err, response) {
+        if (response === true) {
+          return done(null, {user_id: user_id});
+        }else{
+          return done(null, false);
+        }
+      });
+
+    });
+  }
+
+));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
