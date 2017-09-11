@@ -1,5 +1,6 @@
-# song-tracker
-A express.js &amp; vue.js based song tracker
+# Node Express Server
+This repository holds custom node express server configuration for different server. To view any of the server go into any of the folder and run `npm install && npm start`
 
-# Application setup
-[Part 1](https://youtu.be/Fa4cRMaTDUI)
+# List of Projects
+> ndsuapp - Authentication page application
+> sailsproject - API server around sails.js 
