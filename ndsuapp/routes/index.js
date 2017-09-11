@@ -10,4 +10,24 @@ router.get('/', function(req, res, next) {
   res.render('home', { title: 'Home' });
 });
 
+router.get('/login', function(req, res, next){
+  res.render('login', {title: 'Login Page'});
+});
+
+router.get('/profile',authenticationMiddleware(), function(req, res, next){
+  res.render('profile', {title: 'Profile page'});
+});
+
+function authenticationMiddleware() {
+  return (req, res, next) => {
+    console.log(`
+      req.session.passport.user: ${JSON.stringify(req.session.passport)}
+    `);
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/login');
+  };
+}
+
 module.exports = router;

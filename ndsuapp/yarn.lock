@@ -388,6 +388,12 @@ debug@2.6.8, debug@^2.2.0, debug@^2.6.8, debug@~2.6.3:
   dependencies:
     ms "2.0.0"
 
+debug@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.0.tgz#1d2feae53349047b08b264ec41906ba17a8516e4"
+  dependencies:
+    ms "2.0.0"
+
 deep-equal@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
@@ -529,7 +535,16 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express-session@^1.15.5:
+express-mysql-session@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/express-mysql-session/-/express-mysql-session-1.2.2.tgz#dc5ccc16c5f7d15118a742eda4620405ee6ff38e"
+  dependencies:
+    debug "3.0.0"
+    depd "1.1.1"
+    express-session "1.15.5"
+    mysql "2.14.*"
+
+express-session@1.15.5, express-session@^1.15.5:
   version "1.15.5"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.15.5.tgz#f49a18227263b316f6f8544da5fee25a540259ec"
   dependencies:
@@ -1217,7 +1232,7 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-mysql@^2.14.1:
+mysql@2.14.*, mysql@^2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/mysql/-/mysql-2.14.1.tgz#e9324015e810a50abda94855cab41edfad56284a"
   dependencies:
