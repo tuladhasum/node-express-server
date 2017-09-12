@@ -65,6 +65,11 @@ app.set('companyname', 'BCBSND');
 app.locals.parentcompany = 'Noridian';
 // console.log(app.locals);
 
+app.use(function(req, res, next){
+  // res.locals will be passed on to every view like title tag
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+});
 app.use('/', index);
 app.use('/users', users);
 app.use('/sqlite', sqlite);
@@ -84,22 +89,21 @@ passport.use(new LocalStrategy(
 
       if (results.length === 0) {
         done(null, false);
+      }else {
+        console.log(results);
+        const hash = results[0].password.toString();
+        const user_id = results[0].user_id.toString();
+        console.log(hash);
+        bcrypt.compare(password, hash, function (err, response) {
+          if (response === true) {
+            return done(null, {user_id: user_id});
+          }else{
+            return done(null, false);
+          }
+        });
       }
-      console.log(results);
-      const hash = results[0].password.toString();
-      const user_id = results[0].user_id.toString();
-      console.log(hash);
-      bcrypt.compare(password, hash, function (err, response) {
-        if (response === true) {
-          return done(null, {user_id: user_id});
-        }else{
-          return done(null, false);
-        }
-      });
-
     });
   }
-
 ));
 
 // catch 404 and forward to error handler

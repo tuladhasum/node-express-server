@@ -18,6 +18,12 @@ router.post('/login', passport.authenticate('local',{
   failureRedirect: '/login'
 }));
 
+router.get('/logout', function(req, res, next){
+  req.logout();
+  req.session.destroy(); //remotes session from db
+  res.redirect('/');
+});
+
 router.get('/profile',authenticationMiddleware(), function(req, res, next){
   res.render('profile', {title: 'Profile page'});
 });
