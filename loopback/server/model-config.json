@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "person": {
+    "dataSource": null,
+    "public": true
+  },
+  "project": {
+    "dataSource": null,
+    "public": true
+  },
+  "project2": {
+    "dataSource": null,
+    "public": true
+  }
+}
